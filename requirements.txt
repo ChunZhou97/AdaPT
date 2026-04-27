@@ -1,0 +1,6 @@
+torch==1.12.1+cu116
+torchvision==0.13.1+cu116
+grad-cam==1.4.8
+numpy
+tqdm
+Pillow

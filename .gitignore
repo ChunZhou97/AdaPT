@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# 数据集、大文件（可选）
+dataset/
+*.pth
+*.pt
+*.ckpt
