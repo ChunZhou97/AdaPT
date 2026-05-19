@@ -168,3 +168,58 @@ python main.py --learning trans --data CIFAR10 --loc AdaPT_BadNets --surrogate_m
 ```
 
 ---
+
+## 6. Reproduce main tables and figures
+
+This section provides step-by-step instructions to reproduce main results in**Table 2**, **Table 6** and **Figure 5**.
+
+Before running, please make sure the dataset paths in `extract_pos.py` and `main.py` are correctly set. All experiments use `--p 0.1` and `--epochs 100`.
+
+---
+
+### 6.1 Reproduce Table 2: Frozen-backbone transfer learning results
+
+First, extract AdaPT trigger positions. For example, on CIFAR-10:
+
+```bash
+python extract_pos.py --surrogate_models resnet101 --dataset_name CIFAR10 --mode train --trigger_size 13 --device cuda
+python extract_pos.py --surrogate_models resnet101 --dataset_name CIFAR10 --mode test --trigger_size 13 --device cuda
+```
+
+Then run the transfer learning experiment. For example, AdaPT-BadNets on CIFAR-10:
+
+```bash
+python main.py --learning trans --data CIFAR10 --loc AdaPT_BadNets --surrogate_models resnet101 --epochs 100 --p 0.1
+```
+
+To reproduce other Table 2 results, change the following arguments:
+
+```text
+--data: CIFAR10, CIFAR100, MiniImageNet, Caltech101
+--loc: BadNets, Blend, AdaPT_BadNets, AdaPT_Blend
+--learning: trans
+```
+
+For AdaPT-based methods, run `extract_pos.py` first to generate the corresponding position files.
+
+---
+
+### 6.2 Reproduce Table 6: End-to-end learning results
+
+For example, run AdaPT-BadNets on CIFAR-10:
+
+```bash
+python main.py --learning e2e --data CIFAR10 --loc AdaPT_BadNets --surrogate_models resnet101 --epochs 100 --p 0.1
+```
+
+To reproduce other Table 6 results, change the following arguments:
+
+```text
+--data: CIFAR10, CIFAR100, MiniImageNet, Caltech101
+--loc: BadNets, Blend, AdaPT_BadNets, AdaPT_Blend
+--learning: e2e
+```
+
+Each experiment should be independently repeated three times. The resulting ASR values can be used to compute the 95% confidence intervals shown in Figure 5.
+
+---
